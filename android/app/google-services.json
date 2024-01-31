@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "359108531724",
+    "project_id": "trendify-faf3e",
+    "storage_bucket": "trendify-faf3e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359108531724:android:5ee2bea20f3d4d58114029",
+        "android_client_info": {
+          "package_name": "com.trendify.ecommerce.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "359108531724-u2cpjld8pkgcejtm4ijcmlngcjdlah5a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trendify.ecommerce.app",
+            "certificate_hash": "07f24513e78f2be683e26dac11fd3e24fb7a02f8"
+          }
+        },
+        {
+          "client_id": "359108531724-bcbdti530jfaqir73tvc826le4e0hcke.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq61Q9lhiMrudbmCufG0df7T0Cox9m1oc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "359108531724-bcbdti530jfaqir73tvc826le4e0hcke.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "359108531724-ddgot5rerl2cltrm5knijmmcg91fv3hp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tstore"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
