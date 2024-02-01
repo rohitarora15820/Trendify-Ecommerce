@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:tstore/features/authentication/view/login/login.dart';
 
 class onBoardingController extends GetxController {
@@ -21,6 +25,10 @@ class onBoardingController extends GetxController {
 //:ToDo Update current index & jump to next page
   void nextPage() {
     if (currentPageIndex.value == 2) {
+      final storage=GetStorage();
+      if(kDebugMode) log(storage.read('isFirstTime').toString());
+      storage.write('isFirstTime', false);
+      if(kDebugMode) log(storage.read('isFirstTime').toString());
       Get.offAll(()=>const LoginScreen());
     } else {
       pagecontroller.jumpToPage(currentPageIndex.value + 1);
