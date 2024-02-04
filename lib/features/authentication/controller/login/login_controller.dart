@@ -53,7 +53,6 @@ class LoginController extends GetxController {
           email.text.trim(), password.text.trim());
 
 
-
       TFullScreenLoader.stopLoading();
 
       AuthenticationRepository.instance.screenRedirect();
