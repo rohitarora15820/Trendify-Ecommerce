@@ -1,14 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tstore/features/authentication/controller/forgot_password/forgot_password_controller.dart';
 
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/constants/text_strings.dart';
 import '../../../../utils/helpers/helper_functions.dart';
+import '../login/login.dart';
 
 class ResetPassword extends StatelessWidget {
-  const ResetPassword({super.key});
+  const ResetPassword({super.key,required this.email});
+
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +41,16 @@ class ResetPassword extends StatelessWidget {
                 height: TSizes.spaceBtwSections,
               ),
 
+              ///Email
+              Text(
+                email,
+                style: Theme.of(context).textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: TSizes.spaceBtwItems,
+              ),
+
               ///Title & Subtitle
               Text(
                 TTexts.changeYourPasswordTitle,
@@ -61,7 +75,9 @@ class ResetPassword extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   child: const Text(TTexts.done),
-                  onPressed:(){},
+                  onPressed:(){
+                    Get.offAll(()=> LoginScreen());
+                  },
                 ),
               ),
               const SizedBox(
@@ -73,7 +89,9 @@ class ResetPassword extends StatelessWidget {
                 width: double.infinity,
                 child: TextButton(
                   child: const Text(TTexts.resendEmail),
-                  onPressed:(){},
+                  onPressed:(){
+                    ForgotPasswordController.instance.resendPasswordResetEmail(email);
+                  },
                 ),
               ),
 

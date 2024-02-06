@@ -12,12 +12,10 @@ Future<void> main() async{
   final widgetBinding=WidgetsFlutterBinding.ensureInitialized();
 
   /// Init Local Storage
- await GetStorage.init();
+  await GetStorage.init();
 
   /// Await Native Splash
   FlutterNativeSplash.preserve(widgetsBinding: widgetBinding);
-
-
 
   /// Initial Firebase & Authentication Repository
   await Firebase.initializeApp(

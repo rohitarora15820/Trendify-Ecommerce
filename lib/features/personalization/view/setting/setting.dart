@@ -23,7 +23,7 @@ class SettingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller=AuthenticationRepository.instance;
+    final controller=Get.put(AuthenticationRepository());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -161,7 +161,7 @@ class SettingPage extends StatelessWidget {
                   const SizedBox(height: TSizes.spaceBtwSections,),
                   SizedBox(
                     width: double.infinity,
-                    child: OutlinedButton(onPressed: ()=> Get.offAll(()=> LoginScreen()),
+                    child: OutlinedButton(onPressed: ()=>controller.logout(),
                     child:const Text("Logout"),
                     ),
                   ),
