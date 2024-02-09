@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:tstore/features/personalization/view/profile/profile.dart';
 
+import '../../../features/personalization/controller/user_controller.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/image_strings.dart';
 import '../images/t_circular_image.dart';
@@ -14,6 +15,7 @@ class TUserProfileTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller=UserController.instance;
     return ListTile(
       leading: const TCircularImage(
         image: TImages.user,
@@ -22,14 +24,14 @@ class TUserProfileTile extends StatelessWidget {
         padding: 0,
       ),
       title: Text(
-        'Rohit Arora',
+       controller.user.value.fullName,
         style: Theme.of(context)
             .textTheme
             .headlineSmall!
             .apply(color: TColors.white),
       ),
       subtitle: Text(
-        'rohit15820@gmail.com',
+      controller.user.value.email,
         style: Theme.of(context)
             .textTheme
             .bodyMedium!

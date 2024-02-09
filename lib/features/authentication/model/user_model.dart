@@ -6,11 +6,11 @@ import '../../../utils/helpers/helper_functions.dart';
 class UserModel {
   final String id;
   final String email;
-  final String firstName;
-  final String lastName;
+    String firstName;
+    String lastName;
   final String username;
   final String phoneNumber;
-  final String profilePicture;
+   String profilePicture;
 
   UserModel({
     required this.id,
