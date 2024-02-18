@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:tstore/bindings/general_bindings.dart';
 import 'package:tstore/features/authentication/view/onboarding/onboarding.dart';
+import 'package:tstore/routes/app_routes.dart';
 import 'package:tstore/utils/constants/colors.dart';
 import 'package:tstore/utils/constants/text_strings.dart';
 import 'package:tstore/utils/theme/theme.dart';
@@ -17,6 +18,7 @@ class App extends StatelessWidget {
       theme: TAppTheme.lightTheme,
       darkTheme: TAppTheme.darkTheme,
       initialBinding: GeneralBindings(),
+      getPages: AppRoutes.pages,
       debugShowCheckedModeBanner: false,
 
         /// show Loader meanwhile Authentication Repository is deciding what to open

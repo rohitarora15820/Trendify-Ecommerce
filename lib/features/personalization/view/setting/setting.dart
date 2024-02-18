@@ -8,11 +8,13 @@ import 'package:tstore/common/widgets/text/section_heading.dart';
 import 'package:tstore/data/repositories/authentication/authentication_repository.dart';
 import 'package:tstore/features/authentication/view/login/login.dart';
 import 'package:tstore/features/personalization/view/address/address.dart';
+import 'package:tstore/features/shop/controller/category_controller.dart';
 import 'package:tstore/features/shop/view/cart/cart.dart';
 import 'package:tstore/features/shop/view/order/order.dart';
 import 'package:tstore/utils/constants/colors.dart';
 
 import 'package:tstore/utils/constants/sizes.dart';
+import 'package:tstore/utils/dummy/dummy_data.dart';
 
 import '../../../../common/widgets/custom_appbar/appbar.dart';
 
@@ -24,6 +26,7 @@ class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller=Get.put(AuthenticationRepository());
+    final categoryController=Get.put(CategoryController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -126,7 +129,9 @@ class SettingPage extends StatelessWidget {
                     icon: Iconsax.document_upload,
                     title: "Load Data",
                     subtitle: "Upload Data to your Cloud FireStore",
-                    onTap: () {},
+                    onTap: () {
+                      categoryController.uploadCategoryData(TDummyData.categories);
+                    },
                   ),
                   TSettingsMenuTile(
                     icon: Iconsax.location,

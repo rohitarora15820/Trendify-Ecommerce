@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:tstore/common/layout/t_grid_layout.dart';
 import 'package:tstore/common/widgets/products/products_cards/product_card_vertical.dart';
 import 'package:tstore/common/widgets/text/section_heading.dart';
+import 'package:tstore/features/shop/model/category_model.dart';
 
 import '../../../../../common/widgets/brands/brand_showcase.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
 
 class TCategoryTab extends StatelessWidget {
-  const TCategoryTab({super.key});
+  const TCategoryTab({super.key, required this.category});
+
+  final CategoryModel category;
 
   @override
   Widget build(BuildContext context) {
