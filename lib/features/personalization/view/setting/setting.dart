@@ -19,6 +19,8 @@ import 'package:tstore/utils/dummy/dummy_data.dart';
 import '../../../../common/widgets/custom_appbar/appbar.dart';
 
 import '../../../../common/widgets/list_tiles/user_profiile_tile.dart';
+import '../../../shop/controller/banner_controller.dart';
+import '../../../shop/controller/product_controller.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
@@ -26,7 +28,9 @@ class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller=Get.put(AuthenticationRepository());
-    final categoryController=Get.put(CategoryController());
+    // final categoryController=Get.put(CategoryController());
+    // final bannerController=Get.put(BannerController());
+    final productController=Get.put(ProductController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -130,7 +134,8 @@ class SettingPage extends StatelessWidget {
                     title: "Load Data",
                     subtitle: "Upload Data to your Cloud FireStore",
                     onTap: () {
-                      categoryController.uploadCategoryData(TDummyData.categories);
+                      // categoryController.uploadCategoryData(TDummyData.categories);
+                      productController.uploadProductData(TDummyData.products);
                     },
                   ),
                   TSettingsMenuTile(

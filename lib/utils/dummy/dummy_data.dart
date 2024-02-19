@@ -1,9 +1,12 @@
+import 'package:tstore/features/shop/model/product_attribute_model.dart';
+import 'package:tstore/features/shop/model/product_model.dart';
 import 'package:tstore/utils/constants/image_strings.dart';
 
 import '../../features/shop/model/banner_model.dart';
 import '../../features/shop/model/brand_category_model.dart';
 import '../../features/shop/model/brand_model.dart';
 import '../../features/shop/model/category_model.dart';
+import '../../features/shop/model/product_variation_model.dart';
 
 class TDummyData {
   // banners
@@ -117,6 +120,84 @@ class TDummyData {
         parentId: '1'),
   ];
 
+  // products
+  static final List<ProductModel> products = [
+    ProductModel(
+        id: '001',
+        stock: 15,
+        title: "Green Nike sports shoe",
+        salePrice: 30,
+        thumbnail: TImages.productImage1,
+        price: 135,
+        isFeatured: true,
+        description: "Green Nike sports shoe",
+        brand: BrandModel(id: '1', name: 'Nike', image: TImages.nikeLogo, productCount: 265, isFeatured: true),
+        images: [TImages.productImage1, TImages.productImage23, TImages.productImage21, TImages.productImage9],
+        sku: 'ABR4568',
+        categoryId: '1',
+        productAttributes: [
+          ProductAttributeModel(
+            name: 'Color',
+            values: ["Green","Black","Red"]
+          ),ProductAttributeModel(
+            name: 'Size',
+            values: ["EU 30","EU 32","EU 36"]
+          ),
+        ],
+        productVariations: [
+          ProductVariationModel(
+            id: '1',
+            stock: 34,
+            price: 134,
+            salePrice: 122.6,
+            image: TImages.productImage1,
+            description: "This is description of the product",
+            attributeValues: {
+              'Color':'Green',
+              'Size':'EU 34'
+            }
+          ),ProductVariationModel(
+            id: '2',
+            stock: 44,
+            price: 144,
+            salePrice: 132.6,
+            image: TImages.productImage2,
+            description: "This is description of the second product",
+            attributeValues: {
+              'Color':'Black',
+              'Size':'EU 32'
+            }
+          ),
+        ],
+
+        productType: "ProductType.variable",),
+    ProductModel(
+        id: '002',
+        stock: 15,
+        title: "Blue T-Shirts for all ages",
+        salePrice: 30,
+        thumbnail: TImages.productImage69,
+        price: 35,
+        isFeatured: true,
+        description: "Green Nike sports shoe",
+        brand: BrandModel(id: '6', name: 'ZARA', image: TImages.zaraLogo, productCount: 265, isFeatured: true),
+        images: [TImages.productImage68, TImages.productImage69, TImages.productImage5],
+        sku: 'ABR4568',
+        categoryId: '1',
+        productAttributes: [
+          ProductAttributeModel(
+            name: 'Color',
+            values: ["Green","Black","Red"]
+          ),ProductAttributeModel(
+            name: 'Size',
+            values: ["EU 34","EU 36"]
+          ),
+        ],
+
+
+        productType: "ProductType.single",),
+  ];
+
   // brands
   static final List<BrandModel> brands = [
     BrandModel(
@@ -195,6 +276,5 @@ class TDummyData {
     BrandCategoryModel(brandId: '3', categoryId: '8'),
     BrandCategoryModel(brandId: '3', categoryId: '9'),
     BrandCategoryModel(brandId: '3', categoryId: '10'),
-
   ];
 }

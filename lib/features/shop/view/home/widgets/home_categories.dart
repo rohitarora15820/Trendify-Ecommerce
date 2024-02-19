@@ -42,6 +42,7 @@ class THomeCategories extends StatelessWidget {
             final category = categoryController.featuredCategoryList[index];
 
             return TVerticalImageText(
+              isNetworkImage: true,
 
 
               title: category.name,

@@ -35,6 +35,7 @@ class TPromoSlider extends StatelessWidget {
           CarouselSlider(
             items: controller.bannerList
                 .map((e) => TRoundedImage(
+
                       imageUrl: e.imageUrl,
                       isNetworkImage: true,
                       onPressed: () => Get.toNamed(e.targetScreen),

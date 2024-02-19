@@ -9,6 +9,7 @@ class BannerController extends GetxController{
   // Variables
   final carousalCurrentIndex = 0.obs;
   final bannerLoading = false.obs;
+  final bannerUploadLoading = false.obs;
   final RxList<BannerModel> bannerList =  <BannerModel>[].obs;
   final bannerRepository=Get.put(BannerRepository());
 
@@ -43,5 +44,22 @@ class BannerController extends GetxController{
     } finally {
       bannerLoading.value=false;
     }
+  }
+
+
+  Future<void> uploadBannersData(List<BannerModel> banners)async{
+    try{
+      bannerUploadLoading.value=true;
+      await bannerRepository.uploadDummyData(banners);
+      TLoaders.sucessSnackBar(
+          title: "Congratulations",
+          message: "Your Banners Data has been updated successfully!");
+    }catch (e) {
+
+      TLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
+    } finally {
+      bannerUploadLoading.value=false;
+    }
+
   }
 }

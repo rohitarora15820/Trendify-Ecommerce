@@ -33,14 +33,12 @@ class CategoryController extends GetxController {
 
       // update list
       categoryList.assignAll(categories);
-for(var i in categoryList){
-  log(i.isFeatured.toString());
-}
+
 
       //Filter categories List
       featuredCategoryList.assignAll(
-          categoryList.where((p0) => p0.isFeatured ).take(8).toList());
-      log(featuredCategoryList.toString());
+          categoryList.where((p0) => p0.isFeatured && p0.parentId.isEmpty).take(8).toList());
+
 
       
     } catch (e) {
