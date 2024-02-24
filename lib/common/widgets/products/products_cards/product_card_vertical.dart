@@ -5,7 +5,7 @@ import 'package:tstore/common/styles/shadows.dart';
 import 'package:tstore/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:tstore/common/widgets/images/t_roundec_images.dart';
 import 'package:tstore/common/widgets/text/t_brand_title_text_with_verfied_icon.dart';
-import 'package:tstore/features/shop/controller/product_controller.dart';
+import 'package:tstore/features/shop/controller/products/product_controller.dart';
 import 'package:tstore/features/shop/view/product_detail/product_detail.dart';
 import 'package:tstore/utils/constants/colors.dart';
 import 'package:tstore/utils/constants/image_strings.dart';
@@ -30,7 +30,7 @@ final ProductModel product;
     final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: (){
-        Get.to(()=> const ProductDetail());
+        Get.to(()=>  ProductDetail(product: product,));
       },
       child: Container(
         width: 180,

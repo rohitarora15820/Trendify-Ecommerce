@@ -12,7 +12,7 @@ class BrandModel {
     required this.name,
     required this.image,
     this.productCount,
-    isFeatured,
+    this.isFeatured,
   });
 
   static BrandModel empty()=> BrandModel(id: '', name:'', image: '');
@@ -31,12 +31,30 @@ class BrandModel {
     final data=document;
     if(data.isEmpty) return BrandModel.empty();
     return BrandModel(
-      id: data["ID"]??"",
+      id: data["Id"]??"",
       name: data['Name'] ??'',
       image: data['Image'] ??"",
       productCount: data['ProductCount'] ?? 0,
       isFeatured: data['IsFeatured'] ?? false,
     );
   }
+
+
+  factory BrandModel.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> map) {
+    if (map.data() != null) {
+      final data = map.data()!;
+      return BrandModel(
+        id: map.id,
+        name: data['Name'] ??'',
+        image: data['Image'] ??"",
+        productCount: data['ProductCount'] ?? 0,
+        isFeatured: data['IsFeatured'] ?? false,
+      );
+    } else {
+      return BrandModel.empty();
+    }
+  }
+
 }
 

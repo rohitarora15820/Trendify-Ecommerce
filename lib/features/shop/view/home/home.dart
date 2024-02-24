@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tstore/common/widgets/products/products_cards/product_card_vertical.dart';
 import 'package:tstore/common/widgets/shimmer/vertical_product_shimmer.dart';
-import 'package:tstore/features/shop/controller/product_controller.dart';
+import 'package:tstore/features/shop/controller/products/product_controller.dart';
 import 'package:tstore/features/shop/view/all_products/all_products.dart';
 import 'package:tstore/features/shop/view/home/widgets/home_appbar.dart';
 import 'package:tstore/features/shop/view/home/widgets/home_categories.dart';
@@ -85,7 +86,10 @@ class HomeScreen extends StatelessWidget {
                     TSectionHeading(
                       title: "Popular Products",
                       onPressed: () {
-                        Get.to(() => const AllProductsScreen());
+                        Get.to(() =>  AllProductsScreen(
+                          title: "Popular Products",
+                          query: FirebaseFirestore.instance.collection('Products').where('IsFeatured',isEqualTo: true).limit(2),
+                        ));
                       },
                     ),
                     const SizedBox(

@@ -8,15 +8,16 @@ import '../../../../../utils/constants/enums.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
+import '../../../model/brand_model.dart';
 
 class TBrandCard extends StatelessWidget {
   const TBrandCard({
-    super.key,required this.showBorder, this.onTap,
+    super.key,required this.showBorder, this.onTap, required this.brand,
   });
 
   final bool showBorder;
   final void Function()? onTap;
-
+final BrandModel brand;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -31,7 +32,8 @@ class TBrandCard extends StatelessWidget {
 
             Flexible(
               child: TCircularImage(
-                image: TImages.clothIcon,
+                isNetworkImage: true,
+                image: brand.image,
                 bgColor: Colors.transparent,
                 overlayColor:
                 THelperFunctions.isDarkMode(context)
@@ -50,12 +52,12 @@ class TBrandCard extends StatelessWidget {
                 crossAxisAlignment:
                 CrossAxisAlignment.start,
                 children: [
-                  const TBrandTitleWithVerifyIcon(
-                    title: 'Nike',
+                   TBrandTitleWithVerifyIcon(
+                    title: brand.name,
                     brandTextSizes: TextSizes.large,
                   ),
                   Text(
-                    '256 products',
+                    '${brand.productCount} products',
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context)
                         .textTheme

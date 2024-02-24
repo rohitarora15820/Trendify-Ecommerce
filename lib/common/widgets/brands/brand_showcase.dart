@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../features/shop/model/brand_model.dart';
 import '../../../features/shop/view/shop/widgtes/brand_card.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
@@ -21,7 +22,8 @@ class TBrandShowcase extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: TSizes.spaceBtwItems),
       child: Column(
         children: [
-          const TBrandCard(
+           TBrandCard(
+             brand: BrandModel.empty(),
             showBorder: false,
           ),
           const SizedBox(
