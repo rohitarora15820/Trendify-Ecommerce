@@ -263,7 +263,7 @@ class TDummyData {
   ];
 
 //brand category
-  static final List<BrandCategoryModel> brandCategory = [
+  static final List<BrandCategoryModel> brandCategory =  [
     BrandCategoryModel(brandId: '1', categoryId: '1'),
     BrandCategoryModel(brandId: '1', categoryId: '8'),
     BrandCategoryModel(brandId: '1', categoryId: '9'),

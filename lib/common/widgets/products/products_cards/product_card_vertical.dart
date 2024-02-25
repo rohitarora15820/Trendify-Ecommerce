@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:tstore/common/styles/shadows.dart';
 import 'package:tstore/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:tstore/common/widgets/images/t_roundec_images.dart';
+import 'package:tstore/common/widgets/products/favourite/favourite_icon.dart';
 import 'package:tstore/common/widgets/text/t_brand_title_text_with_verfied_icon.dart';
 import 'package:tstore/features/shop/controller/products/product_controller.dart';
 import 'package:tstore/features/shop/view/product_detail/product_detail.dart';
@@ -81,11 +82,7 @@ final ProductModel product;
                     Positioned(
                       top: 0,
                       right: 0,
-                      child: TCircularIcon(
-                        dark: dark,
-                        icon: Iconsax.heart5,
-                        color: Colors.red,
-                      ),
+                      child: TFavouriteIcon(productId: product.id,)
                     )
                   ],
                 ),

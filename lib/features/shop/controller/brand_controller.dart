@@ -1,5 +1,3 @@
-
-
 import 'dart:developer';
 
 import 'package:get/get.dart';
@@ -34,11 +32,9 @@ class BrandController extends GetxController {
 
       allBrands.assignAll(brands);
 
-
-
       //Filter brand List
-      featureBrands.assignAll(
-          allBrands.where((p0) => p0.isFeatured!).take(8).toList());
+      featureBrands
+          .assignAll(allBrands.where((p0) => p0.isFeatured!).take(8).toList());
       log(featureBrands.toString());
     } catch (e) {
       TLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
@@ -47,11 +43,10 @@ class BrandController extends GetxController {
     }
   }
 
-
-  // Get brand specific Products from data source
-  Future<List<ProductModel>> getBrandProducts(String brandId)async{
-    try{
-      final products=await ProductRepository.instance.getProductsForBrand(brandId: brandId);
+  // Get Brand For Category
+  Future<List<BrandModel>> getBrandCategory(String categoryId) async {
+    try {
+      final products = await brandRepository.getBrandsForCategory(categoryId);
       return products;
     } catch (e) {
       TLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
@@ -59,23 +54,34 @@ class BrandController extends GetxController {
     } finally {
       isLoading.value = false;
     }
-
-
   }
+
+  // Get brand specific Products from data source
+  Future<List<ProductModel>> getBrandProducts({required String brandId,int limit=-1}) async {
+    try {
+      final products = await ProductRepository.instance
+          .getProductsForBrand(brandId: brandId,limit: limit);
+      return products;
+    } catch (e) {
+      TLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
+      return [];
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
   //Upload
-  Future<void> uploadBrandData(List<BrandModel> categories)async{
-    try{
-      categoryUploadLoading.value=true;
+  Future<void> uploadBrandData(List<BrandModel> categories) async {
+    try {
+      categoryUploadLoading.value = true;
       await brandRepository.uploadDummyData(categories);
       TLoaders.sucessSnackBar(
           title: "Congratulations",
           message: "Your Category Data has been updated successfully!");
-    }catch (e) {
-
+    } catch (e) {
       TLoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
     } finally {
-      categoryUploadLoading.value=false;
+      categoryUploadLoading.value = false;
     }
-
   }
 }

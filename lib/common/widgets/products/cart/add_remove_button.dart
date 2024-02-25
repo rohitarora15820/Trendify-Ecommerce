@@ -17,7 +17,7 @@ class TProductQuantityWithAddAndRemove extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         TCircularIcon(
-          dark: THelperFunctions.isDarkMode(context),
+
           icon: Iconsax.minus,
           width: 32,
           height: 32,
@@ -29,7 +29,7 @@ class TProductQuantityWithAddAndRemove extends StatelessWidget {
         Text('2',style: Theme.of(context).textTheme.titleSmall,),
         const SizedBox(width: TSizes.spaceBtwItems),
         TCircularIcon(
-          dark: THelperFunctions.isDarkMode(context),
+
           icon: Iconsax.add,
           width: 32,
           height: 32,

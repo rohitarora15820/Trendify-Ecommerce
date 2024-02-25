@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:tstore/data/repositories/products/product_repository.dart';
+import 'package:tstore/features/shop/model/product_model.dart';
 import 'package:tstore/utils/popups/loader.dart';
 
 import '../../../data/repositories/categories/category_repository.dart';
@@ -68,4 +70,10 @@ class CategoryController extends GetxController {
 // Load Selected Category Data
 
 // Get Category or SubCategory Products
+Future<List<ProductModel>> getCategoryProducts({required String categoryId,int limit=4})async{
+
+    final products=await ProductRepository.instance.getProductsForCategory(categoryId:categoryId,limit:limit);
+    return products;
+
+}
 }

@@ -24,7 +24,6 @@ class ProductRepository extends GetxController {
           .get();
 
       final categoryList = snapshot.docs.map((e) {
-
         return ProductModel.fromSnapshot(e);
       }).toList();
 
@@ -39,14 +38,79 @@ class ProductRepository extends GetxController {
   }
 
   // Get Product For Brand
-  Future<List<ProductModel>> getProductsForBrand({required String brandId,int limit=-1}) async {
+  Future<List<ProductModel>> getProductsForBrand(
+      {required String brandId, int limit = -1}) async {
     try {
-     final querySnapShot=limit == -1? await _db.collection('Products').where('Brand.Id',isEqualTo: brandId).get():
-     await _db.collection('Products').where('Brand.Id',isEqualTo: brandId).limit(limit).get();
-     final categoryList = querySnapShot.docs.map((e) {
+      final querySnapShot = limit == -1
+          ? await _db
+              .collection('Products')
+              .where('Brand.Id', isEqualTo: brandId)
+              .get()
+          : await _db
+              .collection('Products')
+              .where('Brand.Id', isEqualTo: brandId)
+              .limit(limit)
+              .get();
+      final categoryList = querySnapShot.docs.map((e) {
+        return ProductModel.fromSnapshot(e);
+      }).toList();
+      return categoryList;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw "Something went wrong. Please try again later";
+    }
+  }
 
-       return ProductModel.fromSnapshot(e);
-     }).toList();
+  // Get Product For Category
+  Future<List<ProductModel>> getProductsForCategory(
+      {required String categoryId, int limit = -1}) async {
+    try {
+      QuerySnapshot querySnapShot = limit == -1
+          ? await _db
+              .collection('ProductCategory')
+              .where('categoryId', isEqualTo: categoryId)
+              .get()
+          : await _db
+              .collection('ProductCategory')
+              .where('categoryId', isEqualTo: categoryId)
+              .limit(limit)
+              .get();
+
+      //extract brand  from docs
+      List<String> result =
+          querySnapShot.docs.map((e) => e['productId'] as String).toList();
+
+      final productQuery = await _db
+          .collection('Products')
+          .where(FieldPath.documentId, whereIn: result)
+          .get();
+
+      List<ProductModel> products =
+          productQuery.docs.map((e) => ProductModel.fromSnapshot(e)).toList();
+
+      return products;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw "Something went wrong. Please try again later";
+    }
+  }
+
+  // get Product by Query
+  // Get All Categories
+  Future<List<ProductModel>> fetchProductsByQuery(Query query) async {
+    try {
+      final querySnapshot = await query.get();
+
+      final categoryList = querySnapshot.docs.map((e) {
+        return ProductModel.fromQuerySnapshot(e);
+      }).toList();
+
       return categoryList;
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
@@ -58,15 +122,13 @@ class ProductRepository extends GetxController {
   }
 
 
-  // get Product by Query
-  // Get All Categories
-  Future<List<ProductModel>> fetchProductsByQuery(Query query) async {
+  // Get All Fav Products
+  Future<List<ProductModel>> getFavouritesProducts(List<String> productId) async {
     try {
-      final querySnapshot = await query.get();
+      final snapShot = await _db.collection('Products').where(FieldPath.documentId,whereIn: productId).get();
 
-      final categoryList = querySnapshot.docs.map((e) {
-
-        return ProductModel.fromQuerySnapshot(e);
+      final categoryList = snapShot.docs.map((e) {
+        return ProductModel.fromSnapshot(e);
       }).toList();
 
       return categoryList;
@@ -142,6 +204,4 @@ class ProductRepository extends GetxController {
       throw "Something went wrong. Please try again later";
     }
   }
-
-
 }

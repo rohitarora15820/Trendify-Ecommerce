@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
@@ -18,6 +19,7 @@ import 'package:tstore/utils/logging/logger.dart';
 
 import '../../../features/authentication/view/signup/verify_email.dart';
 import '../../../utils/exceptions/platform_exceptions.dart';
+import '../../../utils/local_storage/storage_utility.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -26,9 +28,9 @@ class AuthenticationRepository extends GetxController {
   final deviceStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
 
-
   /// Get Authenticated USer Data
   User? get currentAuthenticatedUser => _auth.currentUser;
+
   /// Called from main.dart on app launch
   @override
   void onReady() {
@@ -37,11 +39,14 @@ class AuthenticationRepository extends GetxController {
   }
 
   /// Function to show relevant screen
-  screenRedirect() {
+  screenRedirect() async {
     final user = _auth.currentUser;
     if (user != null) {
       if (user.emailVerified) {
-        Get.offAll(() => NavigationMenu());
+// Initialize User Specific Storage
+        await TLocalStorage.init(user.uid);
+
+        Get.offAll(() => const NavigationMenu());
       } else {
         Get.offAll(() => VerifyEmailScreen(
               email: _auth.currentUser!.email!,
@@ -97,7 +102,8 @@ class AuthenticationRepository extends GetxController {
   Future<void> reAuthenticateLoginWithEmailAndPassword(
       String email, String password) async {
     try {
-      AuthCredential credential= EmailAuthProvider.credential(email: email, password: password);
+      AuthCredential credential =
+          EmailAuthProvider.credential(email: email, password: password);
 
       // Reauthencticate
       await _auth.currentUser!.reauthenticateWithCredential(credential);
@@ -110,13 +116,13 @@ class AuthenticationRepository extends GetxController {
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
-      print("Exception"+e.toString());
+      print("Exception" + e.toString());
       throw 'Something went wrong. Please try again';
     }
   }
-/// delete Account
-  Future<void> deleteAccount(
-      ) async {
+
+  /// delete Account
+  Future<void> deleteAccount() async {
     try {
       await UserRepository.instance.removeUserRecord(_auth.currentUser!.uid);
 
@@ -135,7 +141,6 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-
   /// Email Verification
   Future<void> sendEmailVerification() async {
     try {
@@ -152,6 +157,7 @@ class AuthenticationRepository extends GetxController {
       throw 'Something went wrong. Please try again';
     }
   }
+
   /// Forgot Password
   Future<void> sendForgotPasswordEmail(String? email) async {
     try {
