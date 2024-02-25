@@ -31,7 +31,7 @@ class TBrandShowcase extends StatelessWidget {
         child: Column(
           children: [
              TBrandCard(
-               brand: BrandModel.empty(),
+               brand: brand,
               showBorder: false,
             ),
             const SizedBox(

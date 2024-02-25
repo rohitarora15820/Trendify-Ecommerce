@@ -50,7 +50,7 @@ class FavouriteScreen extends StatelessWidget {
                         animation: TImages.wishListIllustration,
                         showAction: true,
                         actionText: 'Let\'s add some',
-                        onActionPressd: () => Get.off(() => NavigationMenu()),
+                        onActionPressd: () => Get.offAll(() => const NavigationMenu()),
                       );
                       const loader = VerticalProductShimmer();
                       final widget = TCloudHelperFunctions.checkMultiRecordState(

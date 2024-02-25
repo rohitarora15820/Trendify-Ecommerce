@@ -48,7 +48,7 @@ class THomeCategories extends StatelessWidget {
               title: category.name,
               image: category.image,
               onPressed: () {
-                Get.to(() => const SubCategoryScreen());
+                Get.to(() =>  SubCategoryScreen(category:category));
               },
             );
           },

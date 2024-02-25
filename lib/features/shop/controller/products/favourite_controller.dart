@@ -39,7 +39,7 @@ class FavouriteController extends GetxController {
       favourites[productId] = true;
       saveFavouritesToStorage();
       log("added");
-      TLoaders.sucessSnackBar(title: 'Product has been added to  the Wishlist');
+      TLoaders.customToast(message: 'Product has been added to  the Wishlist');
     }
     else{
       TLocalStorage.instance().removeData(productId);
@@ -47,7 +47,7 @@ class FavouriteController extends GetxController {
       saveFavouritesToStorage();
       favourites.refresh();
       log("removed");
-      TLoaders.sucessSnackBar(title: 'Product has been removed from the Wishlist');
+      TLoaders.customToast(message: 'Product has been removed from the Wishlist');
 
     }
   }
