@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tstore/features/shop/model/cart_item_model.dart';
+import 'package:tstore/routes/routes.dart';
 
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/image_strings.dart';
@@ -10,16 +12,17 @@ import '../../text/t_product_tile_text.dart';
 
 class TCartItem extends StatelessWidget {
   const TCartItem({
-    super.key,
+    super.key, required this.cartItemModel,
   });
-
+final CartItemModel cartItemModel;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         /// Image
         TRoundedImage(
-          imageUrl: TImages.productImage1,
+          isNetworkImage: true,
+          imageUrl: cartItemModel.image??"",
           width: 60,
           height: 60,
           padding: const EdgeInsets.all(TSizes.sm),
@@ -37,31 +40,27 @@ class TCartItem extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const TBrandTitleWithVerifyIcon(title: "Nike"),
-              const Flexible(
+               TBrandTitleWithVerifyIcon(title: cartItemModel.brandName),
+               Flexible(
                 child: TProductTileText(
-                  title: "Black Sports Shoes",
+                  title: cartItemModel.title,
                   maxLines: 1,
                 ),
               ),
               /// Attributes
               Text.rich(
                   TextSpan(
-                      children: [
+                      children: (cartItemModel.selectedVariation??{}).entries.map((e) => TextSpan(children:
+                      [
                         TextSpan(
-                            text: 'Color ',
+                            text: '${e.key}',
                             style: Theme.of(context).textTheme.bodySmall
                         ),TextSpan(
-                            text: 'Green ',
-                            style: Theme.of(context).textTheme.bodySmall
-                        ),TextSpan(
-                            text: 'Size ',
-                            style: Theme.of(context).textTheme.bodySmall
-                        ),TextSpan(
-                            text: 'UK 08 ',
-                            style: Theme.of(context).textTheme.bodySmall
+                            text: '${e.value}',
+                            style: Theme.of(context).textTheme.bodyLarge
                         ),
                       ]
+                      )).toList()
                   )
               )
             ],

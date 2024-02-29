@@ -1,25 +1,29 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:tstore/features/shop/controller/products/cart_controller.dart';
+import 'package:tstore/features/shop/view/cart/cart.dart';
 
 import '../../../../utils/constants/colors.dart';
 
 class TCartCounterIcon extends StatelessWidget {
   const TCartCounterIcon({
     super.key,
-    this.onPressed,
+
     this.iconColor,
   });
 
-  final Function()? onPressed;
+
   final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
+    final controller=Get.put(CartController());
     return Stack(
       children: [
         IconButton(
-            onPressed: onPressed,
+            onPressed: ()=> Get.to(()=> CartPage()),
             icon: Icon(
               Iconsax.shopping_bag,
               color: iconColor,
@@ -32,14 +36,16 @@ class TCartCounterIcon extends StatelessWidget {
               decoration: BoxDecoration(
                   color: TColors.black,
                   borderRadius: BorderRadius.circular(100)),
-              child: const Center(
-                child: Text(
-                  '2',
-                  style: TextStyle(color: Colors.white,fontSize: 10),
-                  // style: Theme.of(context)
-                  //     .textTheme
-                  //     .labelLarge!
-                  //     .apply(color:Colors.white, fontSizeFactor: 0.0),
+              child:  Obx(()=>
+                 Center(
+                  child: Text(
+                    controller.noOfCartItems.value.toString(),
+                    style: TextStyle(color: Colors.white,fontSize: 10),
+                    // style: Theme.of(context)
+                    //     .textTheme
+                    //     .labelLarge!
+                    //     .apply(color:Colors.white, fontSizeFactor: 0.0),
+                  ),
                 ),
               ),
             ))

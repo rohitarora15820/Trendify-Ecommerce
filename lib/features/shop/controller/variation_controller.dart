@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:tstore/features/shop/controller/products/cart_controller.dart';
 import 'package:tstore/features/shop/controller/products/image_controller.dart';
 
 import '../model/product_model.dart';
@@ -16,7 +17,6 @@ class VariationController extends GetxController {
   /// Select Attribute and Variation
   void onAttributeSelected(
       ProductModel product, attributeName, attributeValue) {
-
     // When attribute is selected then ass to selectedAttributes
     final selectedAttributes =
         Map<String, dynamic>.from(this.selectedAttributes);
@@ -31,6 +31,12 @@ class VariationController extends GetxController {
     if (selectedVariation.image.isNotEmpty) {
       ImageController.instance.selectedProductImage.value =
           selectedVariation.image;
+    }
+
+    if (selectedVariation.id.isNotEmpty) {
+      final cartController = CartController.instance;
+      cartController.productQtyInCart.value = cartController
+          .getVariationQtyInCart(product.id, selectedVariation.id);
     }
 
     //assign

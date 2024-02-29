@@ -35,7 +35,7 @@ class Shop extends StatelessWidget {
           ),
           actions: [
             TCartCounterIcon(
-              onPressed: () {},
+
             )
           ],
         ),

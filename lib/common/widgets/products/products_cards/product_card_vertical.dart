@@ -19,6 +19,7 @@ import '../../icons/t_circular_icon.dart';
 import '../../text/t_brand_title_text.dart';
 import '../../text/t_product_price_text.dart';
 import '../../text/t_product_tile_text.dart';
+import '../cart/add_to_cart.dart';
 
 class TProductCardVertical extends StatelessWidget {
   const TProductCardVertical({super.key, required this.product});
@@ -140,19 +141,7 @@ final ProductModel product;
                  ),
 
                 ///Add To Cart Button
-                Container(
-                  decoration: const BoxDecoration(
-                      color: TColors.dark,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(TSizes.cardRadiusMd),
-                        bottomRight: Radius.circular(TSizes.productImageRadius),
-                      )
-                  ),
-                  child: const SizedBox(
-                      width: TSizes.iconLg * 1.2,
-                      height: TSizes.iconLg * 1.2,
-                      child: Center(child: Icon(Iconsax.add,color: TColors.white,))),
-                )
+                ProductCartAddToCartButton(product: product,)
 
               ],
             )
@@ -162,4 +151,5 @@ final ProductModel product;
     );
   }
 }
+
 
