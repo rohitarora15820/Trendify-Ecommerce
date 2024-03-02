@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tstore/data/repositories/address/address_reposotory.dart';
+import 'package:tstore/features/personalization/view/address/add_new_address.dart';
+import 'package:tstore/features/personalization/view/address/widgets/single_address.dart';
 import 'package:tstore/utils/constants/image_strings.dart';
+import 'package:tstore/utils/helpers/cloud_helper_functions.dart';
+import 'package:tstore/utils/helpers/helper_functions.dart';
 import 'package:tstore/utils/helpers/network_manager.dart';
 import 'package:tstore/utils/popups/full_screen_loader.dart';
 import 'package:tstore/utils/popups/loader.dart';
 
+import '../../../common/widgets/text/section_heading.dart';
+import '../../../utils/constants/sizes.dart';
 import '../model/address_model.dart';
 
 class AddressController extends GetxController {
@@ -37,6 +43,58 @@ class AddressController extends GetxController {
       TLoaders.errorSnackBar(title: 'Address not found', message: e.toString());
       return [];
     }
+  }
+
+  Future<dynamic> selectNewAddressPopup(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          padding: EdgeInsets.all(TSizes.lg),
+          child: Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TSectionHeading(
+                  title: 'Select Address',
+                  showActionButton: false,
+                ),
+                FutureBuilder(
+                  future: getUserAddress(),
+                  builder: (context, snapshot) {
+                    final response = TCloudHelperFunctions.checkMultiRecordState(
+                        snapshot: snapshot);
+                    if (response != null) return response;
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) => TSingleAddress(
+                          address: snapshot.data![index],
+                          onTap: () async {
+                            await selectedAddress(snapshot.data![index]);
+                            Get.back();
+                          }),
+                    );
+                  },
+                ),
+                // const SizedBox(
+                //   height: TSizes.defaultSpace ,
+                // ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.to(() => const AddNewAddressScreen());
+                    },
+                    child: const Text("Add new address"),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Future newSelectedAddress(AddressModel newAddress) async {

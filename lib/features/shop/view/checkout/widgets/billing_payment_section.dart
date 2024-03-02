@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tstore/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:tstore/common/widgets/text/section_heading.dart';
+import 'package:tstore/features/shop/controller/checkout/checkout_controller.dart';
 import 'package:tstore/utils/constants/colors.dart';
 import 'package:tstore/utils/constants/image_strings.dart';
 import 'package:tstore/utils/constants/sizes.dart';
@@ -11,29 +13,34 @@ class BillingPaymentSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller=Get.put(CheckoutController());
     return Column(
       children: [
         TSectionHeading(title: 'Payment Method',
           showActionButton: true,
           buttonTitle: 'Change',
-          onPressed: (){},
+          onPressed: (){
+          controller.selectPaymentMethod(context);
+          },
         ),
-        Row(
-          children: [
-            TRoundedContainer(
-              width: 60,
-              height: 35,
-              bgColor: THelperFunctions.isDarkMode(context)?TColors.light:TColors.white,
-              padding: const EdgeInsets.all(TSizes.sm),
-              child: const Image(
-                image: AssetImage(TImages.paypal,)
-                ,
-                fit: BoxFit.contain,
+        Obx(()=>
+           Row(
+            children: [
+              TRoundedContainer(
+                width: 60,
+                height: 35,
+                bgColor: THelperFunctions.isDarkMode(context)?TColors.light:TColors.white,
+                padding: const EdgeInsets.all(TSizes.sm),
+                child:  Image(
+                  image: AssetImage(controller.selectedPaymentMethod.value.image,)
+                  ,
+                  fit: BoxFit.contain,
+                ),
               ),
-            ),
-            const SizedBox(width: TSizes.spaceBtwItems/2,),
-            Text('Paypal',style: Theme.of(context).textTheme.bodyLarge,)
-          ],
+              const SizedBox(width: TSizes.spaceBtwItems/2,),
+              Text(controller.selectedPaymentMethod.value.name,style: Theme.of(context).textTheme.bodyLarge,)
+            ],
+          ),
         )
       ],
     );
