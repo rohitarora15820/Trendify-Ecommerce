@@ -46,7 +46,7 @@ class BillingAmountSection extends StatelessWidget {
         Row(
           children: [
             Expanded(child: Text('Order Total',style: Theme.of(context).textTheme.bodyMedium,)),
-            Text('₹ ${TPricingCalculator.calculateTotalPrice(subTotal, 'us')}',style: Theme.of(context).textTheme.titleMedium,),
+            Text('₹ ${TPricingCalculator.calculateTotalPrice(subTotal, 'us').toStringAsFixed(1)}',style: Theme.of(context).textTheme.titleMedium,),
           ],
         ),
       ],

@@ -138,7 +138,7 @@ class SettingPage extends StatelessWidget {
                     onTap: () {
                       // categoryController.uploadCategoryData(TDummyData.categories);
                       // productController.uploadProductData(TDummyData.products);
-                      brandController.uploadBrandData(TDummyData.brands);
+                      // brandController.uploadBrandData(TDummyData.brands);
 
                     },
                   ),

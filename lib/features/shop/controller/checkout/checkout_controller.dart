@@ -40,7 +40,7 @@ class CheckoutController extends GetxController {
                 ),
                 TPaymentTile(
                     model: PaymentMethodModel(
-                        name: 'Paypal', image: TImages.paypal)),
+                        name: 'Razorpay', image: TImages.razorpay)),
                 const SizedBox(
                   height: TSizes.spaceBtwItems / 2,
                 ),
