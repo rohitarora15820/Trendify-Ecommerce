@@ -17,7 +17,7 @@ class CheckoutController extends GetxController {
   @override
   void onInit() {
     selectedPaymentMethod.value =
-        PaymentMethodModel(name: 'Paypal', image: TImages.paypal);
+        PaymentMethodModel(name: 'Razorpay', image: TImages.razorpay);
     super.onInit();
   }
 

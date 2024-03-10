@@ -61,13 +61,13 @@ class ProductDetail extends StatelessWidget {
                     ),
 
                   /// Checkout Button
-                  SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                          onPressed: () {}, child: const Text("Checkout"))),
-                  const SizedBox(
-                    height: TSizes.spaceBtwSections,
-                  ),
+                  // SizedBox(
+                  //     width: double.infinity,
+                  //     child: ElevatedButton(
+                  //         onPressed: () {}, child: const Text("Checkout"))),
+                  // const SizedBox(
+                  //   height: TSizes.spaceBtwSections,
+                  // ),
 
                   /// Description
                   const TSectionHeading(

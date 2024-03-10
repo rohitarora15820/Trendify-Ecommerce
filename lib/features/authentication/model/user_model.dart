@@ -6,23 +6,26 @@ import '../../../utils/helpers/helper_functions.dart';
 class UserModel {
   final String id;
   final String email;
-    String firstName;
-    String lastName;
+  String firstName;
+  String lastName;
   final String username;
   final String phoneNumber;
-   String profilePicture;
+  String profilePicture;
+  String token;
 
-  UserModel({
-    required this.id,
-    required this.email,
-    required this.firstName,
-    required this.lastName,
-    required this.username,
-    required this.phoneNumber,
-    required this.profilePicture,
-  });
+  UserModel(
+      {required this.id,
+      required this.email,
+      required this.firstName,
+      required this.lastName,
+      required this.username,
+      required this.phoneNumber,
+      required this.profilePicture,
+      required this.token});
 
   String get fullName => '$firstName $lastName';
+
+  String get userToken => token;
 
   String get formattedPhoneNo => TFormatter.formatPhoneNumber(phoneNumber);
 
@@ -39,41 +42,42 @@ class UserModel {
   }
 
   static UserModel empty() => UserModel(
-        id: "",
-        email: "",
-        firstName: "",
-        lastName: "",
-        username: "",
-        phoneNumber: "", profilePicture: '',
-      );
+      id: "",
+      email: "",
+      firstName: "",
+      lastName: "",
+      username: "",
+      phoneNumber: "",
+      profilePicture: '',
+      token: "");
 
-  factory UserModel.fromSnapShot(DocumentSnapshot<Map<String,dynamic>> document) {
-
-    if(document.data()!=null) {
-      final data =document.data()!;
+  factory UserModel.fromSnapShot(
+      DocumentSnapshot<Map<String, dynamic>> document) {
+    if (document.data() != null) {
+      final data = document.data()!;
       return UserModel(
         id: document.id,
         email: data['email'],
         firstName: data['firstName'],
         lastName: data['lastName'],
-          username: data['username'],
-          phoneNumber: data['phoneNumber'],
-          profilePicture: data['profilePicture'],
+        username: data['username'],
+        phoneNumber: data['phoneNumber'],
+        profilePicture: data['profilePicture'],
+        token: data['token'],
       );
     }
     return UserModel.empty();
-
   }
 
   Map<String, dynamic> toJson() {
     return {
-
       'email': email,
       'firstName': firstName,
       'lastName': lastName,
       'username': username,
       'phoneNumber': phoneNumber,
       'profilePicture': profilePicture,
+      'token': token,
     };
   }
 }

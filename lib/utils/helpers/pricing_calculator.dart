@@ -16,13 +16,13 @@ class TPricingCalculator {
   /// -- Calculate shipping cost
   static String calculateShippingCost(double productPrice, String location) {
   double shippingCost = getShippingCost(location);
-  return shippingCost.toStringAsFixed(2);
+  return shippingCost.toStringAsFixed(1);
   }
   /// -- Calculate tax
   static String calculateTax(double productPrice, String location) {
     double taxRate = getTaxRateForLocation(location);
     double taxAmount = productPrice * taxRate;
-  return taxAmount.toStringAsFixed(2);
+  return taxAmount.toStringAsFixed(1);
   }
 
   static double getTaxRateForLocation(String location) {

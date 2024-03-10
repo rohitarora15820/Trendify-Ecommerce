@@ -54,7 +54,7 @@ class CartPage extends StatelessWidget {
                   Get.to(() => const CheckoutPage());
                 },
                 child: Obx(() =>
-                    Text('Checkout \$${controller.totalCartPrice.value}')),
+                    Text('Checkout \₹ ${controller.totalCartPrice.value}')),
               ),
             ),
     );

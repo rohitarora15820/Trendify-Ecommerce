@@ -67,6 +67,7 @@ class SignupController extends GetxController {
         username: username.text.trim(),
         phoneNumber: phoneNumber.text.trim(),
         profilePicture: '',
+        token: ''
       );
 
       final userRepository = Get.put(UserRepository());

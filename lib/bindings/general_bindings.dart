@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:tstore/data/services/firebase_notification_service.dart';
 import 'package:tstore/features/shop/controller/address_controller.dart';
 import 'package:tstore/features/shop/controller/checkout/checkout_controller.dart';
 import 'package:tstore/features/shop/controller/products/cart_controller.dart';
@@ -14,7 +15,8 @@ class GeneralBindings extends Bindings{
     Get.put(VariationController());
     Get.put(AddressController());
     Get.put(CheckoutController());
-  
+    Get.put(FirebaseNotificationsController());
+
   }
 
 

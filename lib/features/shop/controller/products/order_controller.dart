@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:tstore/common/widgets/sucess_screen/sucess_screen.dart';
 import 'package:tstore/data/repositories/authentication/authentication_repository.dart';
 import 'package:tstore/data/repositories/order/order_repository.dart';
+import 'package:tstore/data/services/firebase_notification_service.dart';
+import 'package:tstore/features/authentication/model/user_model.dart';
 import 'package:tstore/features/shop/controller/checkout/checkout_controller.dart';
 import 'package:tstore/features/shop/controller/products/cart_controller.dart';
 import 'package:tstore/navigation_menu.dart';
@@ -15,6 +17,7 @@ import 'package:tstore/utils/popups/loader.dart';
 
 import '../../../../common/widgets/loaders/anmation_loaders.dart';
 import '../../../../utils/constants/enums.dart';
+import '../../../personalization/controller/user_controller.dart';
 import '../../model/order_model.dart';
 import '../address_controller.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -27,7 +30,9 @@ class OrderController extends GetxController {
   final addressController = AddressController.instance;
   final checkoutController = CheckoutController.instance;
   final orderRepository = Get.put(OrderRepository());
+  final firebaseRepository = Get.put(FirebaseNotificationsController());
   final razorPaymentController = Razorpay();
+  final userController = UserController.instance;
 
   @override
   void onInit() {
@@ -40,15 +45,18 @@ class OrderController extends GetxController {
         Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+  void _handlePaymentSuccess(PaymentSuccessResponse response)async {
     // Do something when payment succeeds
     TLoaders.sucessSnackBar(
         title: "Payment Success", message: response.paymentId);
+    await firebaseRepository.sendNotification('Order Placed', userController.user.value.userToken, "Order Created Suceesfully");
+
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
     // Do something when payment fails
     TLoaders.errorSnackBar(title: "Error Occured", message: response.message);
+    Get.offAll(()=> NavigationMenu());
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
@@ -57,9 +65,10 @@ class OrderController extends GetxController {
   }
 
   Future<dynamic> openRazorPaySdk(double amount, OrderModel order) async {
+
     var options = {
       'key': 'rzp_test_cwBUehfXB9t2Gx',
-      'amount': amount * 100,
+      'amount': (amount * 100).round(),
       'name': order.items.first.title,
       'description': order.items.first.brandName,
       'prefill': {
@@ -125,13 +134,17 @@ class OrderController extends GetxController {
 
       await orderRepository.saveUserOrder(order, userId);
 
+
       cartController.clearCart();
 
       Get.off(() => SuccessScreen(
           image: TImages.successfulPaymentIcon,
           title: "Payment Success!",
           subtitle: "Your item will be shipped soon!",
-          onPressed: () => Get.offAll(() => const NavigationMenu())));
+          onPressed: () => Get.offAll(() => const NavigationMenu()))
+
+      );
+
     } catch (e) {
       TLoaders.warningSnackBar(title: "Oh Snap!", message: e.toString());
     }
