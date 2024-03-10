@@ -41,7 +41,9 @@ class ProductDetail extends StatelessWidget {
               child: Column(
                 children: [
                   /// Rating & Share
-                  const TRatingAndShare(),
+                   TRatingAndShare(
+                     productModel: product,
+                   ),
 
                   /// Price,Title,Stock & Brand
                   ProductMetaData(

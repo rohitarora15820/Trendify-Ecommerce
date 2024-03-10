@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tstore/common/widgets/products/products_cards/product_card_vertical.dart';
 import 'package:tstore/common/widgets/shimmer/vertical_product_shimmer.dart';
+import 'package:tstore/data/services/firebase_notification_service.dart';
 import 'package:tstore/features/shop/controller/products/product_controller.dart';
 import 'package:tstore/features/shop/view/all_products/all_products.dart';
 import 'package:tstore/features/shop/view/home/widgets/home_appbar.dart';
@@ -24,6 +25,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ProductController());
+    final firebaseNotiController=Get.put(FirebaseNotificationsController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
